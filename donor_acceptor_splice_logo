@@ -50,8 +50,8 @@ def splice_logo(des_file, fasta_file):
         # iterate through each row to extract donor-acceptor region 
         for index, row in exon_df.iterrows():                   
             rec_list.append(row['name'])
-            seq_list.append(sequence_dict[row['name'][int(row['donor_index']):int(row['acceptor_index'])]]])
-            
+            seq_list.append(sequence_dict[row['name']][int(row['donor_index']):int(row['acceptor_index'])])
+
         # pad shorter sequences to normalize sequence length
         max_len = max(len(seq) for seq in seq_list)
         pad_seqs = [seq.ljust(max_len, 'N') for seq in seq_list] # adds 'N' to missing data
