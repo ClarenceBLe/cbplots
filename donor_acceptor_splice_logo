@@ -11,7 +11,7 @@ def splice_logo(des_file, fasta_file):
     
     def get_features(des_file):
         # read in gene description file and return for downstream use/documentation
-        des_df =  pd.read_csv(des_file, sep='\t', header=None, comment='#') 
+        des_df =  pd.read_csv(des_file, sep='\t', header=None, comment='#', low_memory=False) 
         des_df.columns = ['name', 'method', 'feature', 'f_start', 'f_end', 'score', 'strand','f_readframe', 'attributes'] 
         exon_df = des_df[des_df.feature=='exon'][['name', 'strand', 'feature', 'f_start', 'f_end']]  
 
@@ -20,12 +20,13 @@ def splice_logo(des_file, fasta_file):
         # (-): DONOR -- (exon_START-1 , exon_END+1)  ACCEPTOR
         for index, row in exon_df.iterrows():
             if row['feature'] == 'exon': 
-                # (+): DONOR -- (exon_END+1 , exon_START-1)  ACCEPTOR
+
+                # (+): DONOR -- (exon_END+1 , exon_START-1) -- ACCEPTOR
                 if row['strand'] == '+':
                     exon_df.at[index, 'donor_index'] = int(row['f_end'])+1 if pd.notna(row['f_end']) else 0   
                     exon_df.at[index, 'acceptor_index'] = row['f_start']-1 if pd.notna(row['f_end']) else 0     
 
-                # (-): DONOR -- (exon_START-1 , exon_END+1)  ACCEPTOR
+                # (-): DONOR -- (exon_START-1 , exon_END+1) -- ACCEPTOR
                 elif row['strand'] == '-':
                     exon_df.at[index, 'donor_index'] = row['f_start']-1 if pd.notna(row['f_end']) else 0 
                     exon_df.at[index, 'acceptor_index'] = row['f_end']+1 if pd.notna(row['f_end']) else 0
@@ -79,7 +80,8 @@ def splice_logo(des_file, fasta_file):
 #gunzip ftp://ftp.ensembl.org/pub/release-110/gtf/homo_sapiens/Homo_sapiens.GRCh38.110.gtf.gz
 
 # base directory where gene description (.gtf) and fasta (.fa) datasets stored 
-base_dir = '/global/cfs/cdirs/nelli/clarence/logo' # replace with your own
+description_file = ' '                # replace with full file-path to 'Homo_sapiens.GRCh38.110.gtf'
+sequence_file = ' '                   # replace with full file-path to 'Homo_sapiens.GRCh38.dna.primary_assembly.fa'
 
 # call main function
-splice_logo(f"{base_dir}/Homo_sapiens.GRCh38.110.gtf", f"{base_dir}/Homo_sapiens.GRCh38.dna.primary_assembly.fa")
+splice_logo(description_file, sequence_file)
