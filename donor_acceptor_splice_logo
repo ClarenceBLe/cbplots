@@ -73,7 +73,7 @@ def splice_logo(des_file, fasta_file):
     pad_seqs = parse_fasta(exon_df, fasta_file, sequence_dict)
     make_logo(pad_seqs)
 
-# Download and unzip gene description and fasta files on terminal - this will serve as your base directory
+# Download and unzip gene description and fasta files into base directory
 #wget ftp://ftp.ensembl.org/pub/release-110/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
 #wget ftp://ftp.ensembl.org/pub/release-110/gtf/homo_sapiens/Homo_sapiens.GRCh38.110.gtf.gz
 #gunzip ftp://ftp.ensembl.org/pub/release-110/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
