@@ -4,7 +4,6 @@
 
 import pandas as pd
 from Bio import SeqIO
-from collections import defaultdict
 import matplotlib.pyplot as plt
 import logomaker as lma
 
@@ -47,7 +46,6 @@ def splice_logo(des_file, fasta_file):
         # create sequence list
         rec_list = []
         seq_list = []
-        rec_seq_dict = {}
 
         # iterate through each row to extract donor-acceptor region 
         for index, row in exon_df.iterrows():                   
