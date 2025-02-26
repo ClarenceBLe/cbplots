@@ -1,6 +1,6 @@
-Author: Clarence Brian Le, Ph.D.
-Date: August 25, 2025
-Contact: ClarenceBLe@gmail.com
+## Author: Clarence Brian Le, Ph.D.
+## Date: August 25, 2025
+## Contact: ClarenceBLe@gmail.com
 
 import pandas as pd
 from Bio import SeqIO
